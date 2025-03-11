@@ -1,15 +1,17 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 
 	cyon "github.com/Devashish08/cyoa"
 )
 
 func main() {
+	port := flag.Int("port", 3000, "the port to start the CYOA web application on")
 	fileName := flag.String("file", "story.json", "the JSON file with the CYOA story")
 	flag.Parse()
 	fmt.Printf("Using the story in %s.\n", *fileName)
@@ -19,10 +21,13 @@ func main() {
 		panic(err)
 	}
 
-	d := json.NewDecoder(f)
-	var story cyon.Story
-	if err := d.Decode(&story); err != nil {
+	story, err := cyon.JsonStory(f)
+	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%+v\n", story)
+
+	h := cyon.NewHandler(story)
+	fmt.Printf("Starting the server at:%d\n", *port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), h))
+
 }
