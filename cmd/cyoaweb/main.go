@@ -26,7 +26,7 @@ func main() {
 		panic(err)
 	}
 
-	h := cyon.NewHandler(story)
+	h := cyon.NewHandler(story, nil)
 	fmt.Printf("Starting the server at:%d\n", *port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), h))
 
