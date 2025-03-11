@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"text/template"
 
 	cyon "github.com/Devashish08/cyoa"
 )
@@ -27,9 +26,7 @@ func main() {
 		panic(err)
 	}
 
-	tpl := template.Must(template.New("").Parse("Hello!"))
-
-	h := cyon.NewHandler(story, cyon.WithTemplate(tpl))
+	h := cyon.NewHandler(story)
 	fmt.Printf("Starting the server at:%d\n", *port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), h))
 
