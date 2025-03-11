@@ -96,6 +96,7 @@ func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	path = path[1:]
+	path = strings.TrimPrefix(path, "story/")
 
 	if chapter, ok := h.s[path]; ok {
 		err := tpl.Execute(w, chapter)
