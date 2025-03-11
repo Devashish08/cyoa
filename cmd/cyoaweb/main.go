@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	port := flag.Int("port", 3000, "the port to start the CYOA web application on")
+	port := flag.Int("port", 3001, "the port to start the CYOA web application on")
 	fileName := flag.String("file", "story.json", "the JSON file with the CYOA story")
 	flag.Parse()
 	fmt.Printf("Using the story in %s.\n", *fileName)
